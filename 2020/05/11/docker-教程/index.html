@@ -91,6 +91,9 @@
 <meta property="og:image" content="http://c.biancheng.net/uploads/allimg/190416/4-1Z416140926303.gif">
 <meta property="og:image" content="http://c.biancheng.net/uploads/allimg/190416/4-1Z41614102M63.gif">
 <meta property="og:image" content="http://c.biancheng.net/uploads/allimg/190416/4-1Z4161413112O.gif">
+<meta property="og:image" content="http://c.biancheng.net/uploads/allimg/190416/4-1Z416162959461.gif">
+<meta property="og:image" content="http://c.biancheng.net/uploads/allimg/190416/4-1Z41616333O35.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/Guuhua/PicBed/master/imgdllwin10/image-20200512171745658.png">
 <meta property="article:published_time" content="2020-05-11T07:32:50.000Z">
 <meta property="article:modified_time" content="2020-05-11T07:32:50.000Z">
 <meta property="article:author" content="Juntao">
@@ -395,7 +398,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  7.8k
+                  11k
                 </span>
               
 
@@ -411,7 +414,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  28
+                  41
                 </span>
               
             </div>
@@ -665,6 +668,106 @@
 <h3 id="Docker-镜像（image）详解"><a href="#Docker-镜像（image）详解" class="headerlink" title="Docker 镜像（image）详解"></a>Docker 镜像（image）详解</h3><blockquote>
 <p>如果曾经做过 VM 管理员，则可以把 Docker 镜像理解为 VM 模板，VM 模板就像停止运行的 VM，而 Docker 镜像就像停止运行的容器；而作为一名研发人员，则可以将镜像理解为类（Class）</p>
 </blockquote>
+<p>首先需要先从镜像仓库服务中拉取镜像。常见的镜像仓库服务是 Docker Hub，但是也存在其他镜像仓库服务。拉取操作会将镜像下载到本地 Docker 主机，可以使用该镜像启动一个或者多个容器。镜像由多个层组成，每层叠加之后，从外部看来就如一个独立的对象。镜像内部是一个精简的操作系统（OS），同时还包含应用运行所必须的文件和依赖包。</p>
+<p>因为容器的设计初衷就是快速和小巧，所以镜像通常都比较小。前面多次提到镜像就像停止运行的容器（类）。实际上，可以停止某个容器的运行，并从中创建新的镜像。</p>
+<p>在该前提下，镜像可以理解为一种构建时（build-time）结构，而容器可以理解为一种运行时（run-time）结构，如下图所示。</p>
+<p><img src="http://c.biancheng.net/uploads/allimg/190416/4-1Z416162959461.gif" alt=""></p>
+<h4 id="镜像和容器"><a href="#镜像和容器" class="headerlink" title="镜像和容器"></a>镜像和容器</h4><p>上图从顶层设计层面展示了镜像和容器间的关系。通常使用docker container run和docker service create命令从某个镜像启动一个或多个容器。一旦容器从镜像启动后，二者之间就变成了互相依赖的关系，并且在镜像上启动的容器全部停止之前，镜像是无法被删除的。尝试删除镜像而不停止或销毁使用它的容器，会导致出错。</p>
+<h4 id="镜像通常比较小"><a href="#镜像通常比较小" class="headerlink" title="镜像通常比较小"></a>镜像通常比较小</h4><p>容器目的就是运行应用或者服务，这意味着容器的镜像中必须包含应用/服务运行所必需的操作系统和应用文件。但是，容器又追求快速和小巧，这意味着构建镜像的时候通常需要裁剪掉不必要的部分，保持较小的体积。</p>
+<p>例如，Docker 镜像通常不会包含 6 个不同的 Shell 让读者选择——通常 Docker 镜像中只有一个精简的Shell，甚至没有 Shell。</p>
+<p><strong>镜像中还不包含内核——容器都是共享所在 Docker 主机的内核。</strong>所以有时会说容器仅包含必要的操作系统（通常<strong>只有操作系统文件和文件系统对象</strong>）</p>
+<blockquote>
+<p>提示：Hyper-V 容器运行在专用的轻量级 VM 上，同时利用 VM 内部的操作系统内核。</p>
+</blockquote>
+<p>Docker 官方镜像 Alpine Linux 大约只有 4MB，可以说是 Docker 镜像小巧这一特点的比较典型的例子。</p>
+<p>但是，镜像更常见的状态是如 Ubuntu 官方的 Docker 镜像一般，大约有 110MB。这些镜像中都已裁剪掉大部分的无用内容。</p>
+<p>Windows 镜像要比 Linux 镜像大一些，这与 Windows OS 工作原理相关。比如，未压缩的最新 Microsoft .NET 镜像（microsoft/dotnet:latest）超过 1.7GB。Windows Server 2016 Nano Server 镜像（microsoft/nanoserver:latest）在拉取并解压后，其体积略大于 1GB</p>
+<h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><p>Docker 主机安装之后，本地并没有镜像。</p>
+<p><code>docker image pull</code> 是下载镜像的命令。镜像从远程镜像仓库服务的仓库中下载。</p>
+<p>默认情况下，镜像会从 Docker Hub 的仓库中拉取。<code>docker image pull alpine:latest</code> 命令会从 Docker Hub 的 alpine 仓库中拉取标签为 latest 的镜像。</p>
+<p>Linux Docker 主机本地镜像仓库通常位于 /var/lib/docker/storage-driver，Windows Docker 主机则是 C:\ProgramData\docker\windowsfilter。</p>
+<p>可以使用以下命令检查 Docker 主机的本地仓库中是否包含镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls</span><br><span class="line">REPOSITORY TAG IMAGE ID CREATED SIZE</span><br></pre></td></tr></table></figure>
+
+<p>将镜像取到 Docker 主机本地的操作是拉取。所以，如果读者想在 Docker 主机使用最新的 Ubuntu 镜像，需要拉取它。通过下面的命令可以将镜像拉取到本地，并观察其大小。</p>
+<blockquote>
+<p>提示：如果使用 Linux，并且还没有将当前用户加入到本地 Docker UNIX 组中，则需要在下面的命令前面添加 sudo。</p>
+</blockquote>
+<h4 id="镜像仓库服务"><a href="#镜像仓库服务" class="headerlink" title="镜像仓库服务"></a>镜像仓库服务</h4><p>Docker 镜像存储在镜像仓库服务（Image Registry）当中。</p>
+<p>Docker 客户端的镜像仓库服务是可配置的，默认使用 Docker Hub。</p>
+<p>镜像仓库服务包含多个镜像仓库（Image Repository）。同样，一个镜像仓库中可以包含多个镜像。可能这听起来让人有些迷惑，所以下图展示了包含 3 个镜像仓库的镜像仓库服务，其中每个镜像仓库都包含一个或多个镜像。</p>
+<img src="http://c.biancheng.net/uploads/allimg/190416/4-1Z41616333O35.gif" style="zoom:67%;" />
+
+<h4 id="官方和非官方镜像仓库"><a href="#官方和非官方镜像仓库" class="headerlink" title="官方和非官方镜像仓库"></a>官方和非官方镜像仓库</h4><p>Docker Hub 也分为官方仓库（Official Repository）和非官方仓库（Unofficial Repository）</p>
+<p>顾名思义，官方仓库中的镜像是由 Docker 公司审查的。这意味着其中的镜像会及时更新，由高质量的代码构成，这些代码是安全的，有完善的文档和最佳实践。</p>
+<p>非官方仓库更像江湖侠客，其中的镜像不一定具备官方仓库的优点，但这并不意味着所有非官方仓库都是不好的！非官方仓库中也有一些很优秀的镜像。</p>
+<p>在信任非官方仓库镜像代码之前需要我们保持谨慎。说实话，读者在使用任何从互联网上下载的软件之前，都要小心，甚至是使用那些来自官方仓库的镜像时也应如此。</p>
+<p>大部分流行的操作系统和应用在 Docker Hub 的官方仓库中都有其对应镜像。这些镜像很容易找到，基本都在 Docker Hub 命名空间的顶层。</p>
+<h4 id="镜像命名和标签"><a href="#镜像命名和标签" class="headerlink" title="镜像命名和标签"></a>镜像命名和标签</h4><p>只需要给出镜像的名字和标签，就能在官方仓库中定位一个镜像（采用“:”分隔）。从官方仓库拉取镜像时，docker image pull 命令的格式如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image pull &lt;repository&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在之前的 Linux 示例中，通过下面的两条命令完成 Alpine 和 Ubuntu 镜像的拉取。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker image pull alpine:latest</span><br><span class="line">docker image pull ubuntu:latest</span><br></pre></td></tr></table></figure>
+
+<p>这两条命令从 alpine 和 ubuntu 仓库拉取了标有“latest”标签的镜像。</p>
+<p>下面来介绍一下如何从官方仓库拉取不同的镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker image pull mongo:3.3.11</span><br><span class="line">//该命令会从官方Mongo库拉取标签为3.3.11的镜像</span><br><span class="line"></span><br><span class="line">$ docker image pull redis:latest</span><br><span class="line">//该命令会从官方[Redis](http://c.biancheng.net/redis/)库拉取标签为latest的镜像</span><br><span class="line"></span><br><span class="line">$ docker image pull alpine</span><br><span class="line">//该命令会从官方Alpine库拉取标签为latest的镜像</span><br></pre></td></tr></table></figure>
+
+<p>关于上述命令，需要注意以下几点。</p>
+<ol>
+<li><p>首先，如果没有在仓库名称后指定具体的镜像标签，则 Docker 会假设用户希望拉取标签为 latest 的镜像。</p>
+</li>
+<li><p>其次，标签为 latest 的镜像没有什么特殊魔力！标有 latest 标签的镜像不保证这是仓库中最新的镜像！例如，Alpine 仓库中最新的镜像通常标签是 edge。通常来讲，使用 latest 标签时需要谨慎！</p>
+</li>
+<li><p>从非官方仓库拉取镜像也是类似的，读者只需要在仓库名称面前加上 Docker Hub 的用户名或者组织名称。</p>
+</li>
+</ol>
+<p>下面通过示例来展示如何从 tu-demo 仓库中拉取 v2 这个镜像，其中镜像的拥有者是 Docker Hub 账户 nigelpoulton，一个不应该被信任的账户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker image pull nigelpoulton/tu-demo:v2</span><br><span class="line">//该命令会从以我自己的 Docker Hub 账号为命名空间的 tu-demo 库中下载标签为 v2 的镜像</span><br></pre></td></tr></table></figure>
+
+<p>如果希望从第三方镜像仓库服务获取镜像（非 Docker Hub），则需要在镜像仓库名称前加上第三方镜像仓库服务的 DNS 名称。</p>
+<p>假设上面的示例中的镜像位于 Google 容器镜像仓库服务（GCR）中，则需要在仓库名称前面加上 gcr.io，如 <code>docker pull gcr.io/nigelpoulton/tu-demo:v2</code>（这个仓库和镜像并不存在）</p>
+<h5 id="为镜像打多个标签"><a href="#为镜像打多个标签" class="headerlink" title="为镜像打多个标签"></a>为镜像打多个标签</h5><p>关于镜像有一点不得不提，一个镜像可以根据用户需要设置多个标签。这是因为标签是存放在镜像元数据中的任意数字或字符串。一起来看下面的示例。</p>
+<p>在 <code>docker image pull</code> 命令中指定 <code>-a</code> 参数来拉取仓库中的全部镜像。接下来可以通过运行 <code>docker image ls</code> 查看已经拉取的镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls</span><br><span class="line">REPOSITORY TAG IMAGE ID CREATED SIZE</span><br><span class="line">nigelpoulton/tu-demo v2 6ac21e..bead 1 yr ago 211.6 MB</span><br><span class="line">nigelpoulton/tu-demo latest 9b915a..1e29 1 yr ago 211.6 MB</span><br><span class="line">nigelpoulton/tu-demo v1 9b915a..1e29 1 yr ago 211.6 MB</span><br></pre></td></tr></table></figure>
+
+<p>注意看 <code>docker image ls</code> 命令输出中的 IMAGE ID 这一列。发现只有两个不同的 Image ID。这是因为实际只下载了两个镜像，其中有两个标签指向了相同的镜像。</p>
+<p>换句话说，其中一个镜像拥有两个标签。如果仔细观察会发现 v1 和 latest 标签指向了相同的 IMAGE ID，这意味着这两个标签属于相同的镜像。</p>
+<p>这个示例也完美证明了前文中关于 latest 标签使用的警告。latest 标签指向了 v1 标签的镜像。这意味着 latest 实际指向了两个镜像中较早的那个版本，而不是最新的版本！latest 是一个非强制标签，不保证指向仓库中最新的镜像！</p>
+<p>过滤 <code>docker image ls</code> 的输出内容</p>
+<p>Docker 提供 <code>--filter</code> 参数来过滤 <code>docker image ls</code> 命令返回的镜像列表内容。</p>
+<p>下面的示例只会返回悬虚（dangling）镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls --filter dangling=<span class="literal">true</span></span><br><span class="line">REPOSITORY TAG IMAGE ID CREATED SIZE</span><br><span class="line">&lt;none&gt; &lt;none&gt; 4fd34165afe0 7 days ago 14.5MB</span><br></pre></td></tr></table></figure>
+
+<p>那些没有标签的镜像被称为悬虚镜像，在列表中展示为<none>:<none>。</p>
+<p>通常出现这种情况，是因为构建了一个新镜像，然后为该镜像打了一个已经存在的标签。当此情况出现，Docker 会构建新的镜像，然后发现已经有镜像包含相同的标签，接着 Docker 会移除旧镜像上面的标签，将该标签标在新的镜像之上。</p>
+<p>例如，首先基于 alpine:3.4 构建一个新的镜像，并打上 dodge:challenger 标签。然后更新 Dockerfile，将 alpine:3.4 替换为 alpine:3.5，并且再次执行 <code>docker image build</code> 命令，该命令会构建一个新的镜像，并且标签为 dodge:challenger，同时移除了旧镜像上面对应的标签，旧镜像就变成了悬虚镜像。</p>
+<p>可以通过 <code>docker image prune</code> 命令移除全部的悬虚镜像。如果添加了 -a 参数，Docker 会额外移除没有被使用的镜像（那些没有被任何容器使用的镜像）</p>
+<p>Docker 目前支持如下的过滤器。</p>
+<ul>
+<li>dangling：可以指定 true 或者 false，仅返回悬虚镜像（true），或者非悬虚镜像（false）。</li>
+<li>before：需要镜像名称或者 ID 作为参数，返回在之前被创建的全部镜像。</li>
+<li>since：与 before 类似，不过返回的是指定镜像之后创建的全部镜像。</li>
+<li>label：根据标注（label）的名称或者值，对镜像进行过滤。docker image ls命令输出中不显示标注内容。</li>
+</ul>
+<p>其他的过滤方式可以使用 reference。</p>
+<p>下面就是使用 reference 完成过滤并且仅显示标签为 latest 的示例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls --filter=reference=<span class="string">"*:latest"</span></span><br><span class="line">REPOSITORY TAG IMAGE ID CREATED SIZE</span><br><span class="line">alpine latest 3fd9065eaf02 8 days ago 4.15MB</span><br><span class="line"><span class="built_in">test</span> latest 8426e7efb777 3 days ago 122MB</span><br></pre></td></tr></table></figure>
+
+<p>可以使用 –format 参数来通过 Go 模板对输出内容进行格式化。例如，下面的指令将只返回 Docker 主机上镜像的大小属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls --format <span class="string">"&#123;&#123;.Size&#125;&#125;"</span></span><br><span class="line"></span><br><span class="line">$ docker image ls --format <span class="string">"&#123;&#123;.Repository&#125;&#125;: &#123;&#123;.Tag&#125;&#125;: &#123;&#123;.Size&#125;&#125;"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果读者需要更复杂的过滤，可以使用 OS 或者 Shell 自带的工具，比如 Grep 或者 AWK</p>
+<h5 id="通过-CLI-方式搜索-Docker-Hub"><a href="#通过-CLI-方式搜索-Docker-Hub" class="headerlink" title="通过 CLI 方式搜索 Docker Hub"></a>通过 CLI 方式搜索 Docker Hub</h5><p><code>docker search</code> 命令允许通过 CLI 的方式搜索 Docker Hub。可以通过“NAME”字段的内容进行匹配，并且基于返回内容中任意列的值进行过滤。</p>
+<p>简单模式下，该命令会搜索所有“NAME”字段中包含特定字符串的仓库。例如，下面的命令会查找所有“NAME”包含“nigelpoulton”的仓库。</p>
+<h5 id="镜像和分层"><a href="#镜像和分层" class="headerlink" title="镜像和分层"></a>镜像和分层</h5><p>Docker 镜像由一些松耦合的只读镜像层组成。如下图所示。</p>
+<img src="https://raw.githubusercontent.com/Guuhua/PicBed/master/imgdllwin10/image-20200512171745658.png" alt="image-20200512171745658" style="zoom:67%;" />
+
+<p>Docker 负责堆叠这些镜像层，并且将它们表示为单个统一的对象。查看镜像分层的方式可以通过 docker image inspect 命令。下面同样以 ubuntu:latest 镜像为例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image inspect ubuntu:latest</span><br></pre></td></tr></table></figure>
+
+<p><code>docker history</code> 命令显示了镜像的构建历史记录，但其并不是严格意义上的镜像分层。例如，有些 Dockerfile 中的指令并不会创建新的镜像层。比如 ENV、EXPOSE、CMD 以及 ENTRY- POINT。不过，这些命令会在镜像中添加元数据。</p>
+<p>所有的 Docker 镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前镜像层之上，创建新的镜像层。</p>
 
       
     </div>
@@ -858,7 +961,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容器生态"><span class="nav-number">1.1.</span> <span class="nav-text">容器生态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开放容器计划"><span class="nav-number">1.2.</span> <span class="nav-text">开放容器计划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Win-安装docker"><span class="nav-number">1.3.</span> <span class="nav-text">Win 安装docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-Storage-Driver：存储驱动"><span class="nav-number">1.4.</span> <span class="nav-text">Docker Storage Driver：存储驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Device-Mapper-配置"><span class="nav-number">1.5.</span> <span class="nav-text">Device Mapper 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#让-Docker-自动设置-direct-lvm"><span class="nav-number">1.5.1.</span> <span class="nav-text">让 Docker 自动设置 direct-lvm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手动配置-Device-Mapper-的-direct-lvm"><span class="nav-number">1.5.2.</span> <span class="nav-text">手动配置 Device Mapper 的 direct-lvm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运维人员看docker"><span class="nav-number">1.6.</span> <span class="nav-text">运维人员看docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发人员看Docker"><span class="nav-number">1.7.</span> <span class="nav-text">开发人员看Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像"><span class="nav-number">1.8.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器"><span class="nav-number">1.9.</span> <span class="nav-text">容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker引擎（engine）详解"><span class="nav-number">2.</span> <span class="nav-text">Docker引擎（engine）详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#摆脱-LXC"><span class="nav-number">2.1.</span> <span class="nav-text">摆脱 LXC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#摒弃大而全的Docker-daemon"><span class="nav-number">2.2.</span> <span class="nav-text">摒弃大而全的Docker daemon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开放容器计划（OCI）的影响"><span class="nav-number">2.3.</span> <span class="nav-text">开放容器计划（OCI）的影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runc"><span class="nav-number">2.4.</span> <span class="nav-text">runc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#containerd"><span class="nav-number">2.5.</span> <span class="nav-text">containerd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动一个新的容器"><span class="nav-number">2.6.</span> <span class="nav-text">启动一个新的容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#此模型的优势"><span class="nav-number">2.7.</span> <span class="nav-text">此模型的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shim"><span class="nav-number">2.8.</span> <span class="nav-text">Shim</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在-Linux-中的实现"><span class="nav-number">2.9.</span> <span class="nav-text">在 Linux 中的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#daemon-的作用"><span class="nav-number">2.10.</span> <span class="nav-text">daemon 的作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-镜像（image）详解"><span class="nav-number">3.</span> <span class="nav-text">Docker 镜像（image）详解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容器生态"><span class="nav-number">1.1.</span> <span class="nav-text">容器生态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开放容器计划"><span class="nav-number">1.2.</span> <span class="nav-text">开放容器计划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Win-安装docker"><span class="nav-number">1.3.</span> <span class="nav-text">Win 安装docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-Storage-Driver：存储驱动"><span class="nav-number">1.4.</span> <span class="nav-text">Docker Storage Driver：存储驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Device-Mapper-配置"><span class="nav-number">1.5.</span> <span class="nav-text">Device Mapper 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#让-Docker-自动设置-direct-lvm"><span class="nav-number">1.5.1.</span> <span class="nav-text">让 Docker 自动设置 direct-lvm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#手动配置-Device-Mapper-的-direct-lvm"><span class="nav-number">1.5.2.</span> <span class="nav-text">手动配置 Device Mapper 的 direct-lvm</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运维人员看docker"><span class="nav-number">1.6.</span> <span class="nav-text">运维人员看docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发人员看Docker"><span class="nav-number">1.7.</span> <span class="nav-text">开发人员看Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像"><span class="nav-number">1.8.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器"><span class="nav-number">1.9.</span> <span class="nav-text">容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker引擎（engine）详解"><span class="nav-number">2.</span> <span class="nav-text">Docker引擎（engine）详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#摆脱-LXC"><span class="nav-number">2.1.</span> <span class="nav-text">摆脱 LXC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#摒弃大而全的Docker-daemon"><span class="nav-number">2.2.</span> <span class="nav-text">摒弃大而全的Docker daemon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开放容器计划（OCI）的影响"><span class="nav-number">2.3.</span> <span class="nav-text">开放容器计划（OCI）的影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#runc"><span class="nav-number">2.4.</span> <span class="nav-text">runc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#containerd"><span class="nav-number">2.5.</span> <span class="nav-text">containerd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动一个新的容器"><span class="nav-number">2.6.</span> <span class="nav-text">启动一个新的容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#此模型的优势"><span class="nav-number">2.7.</span> <span class="nav-text">此模型的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shim"><span class="nav-number">2.8.</span> <span class="nav-text">Shim</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在-Linux-中的实现"><span class="nav-number">2.9.</span> <span class="nav-text">在 Linux 中的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#daemon-的作用"><span class="nav-number">2.10.</span> <span class="nav-text">daemon 的作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-镜像（image）详解"><span class="nav-number">3.</span> <span class="nav-text">Docker 镜像（image）详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像和容器"><span class="nav-number">3.1.</span> <span class="nav-text">镜像和容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像通常比较小"><span class="nav-number">3.2.</span> <span class="nav-text">镜像通常比较小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拉取镜像"><span class="nav-number">3.3.</span> <span class="nav-text">拉取镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像仓库服务"><span class="nav-number">3.4.</span> <span class="nav-text">镜像仓库服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#官方和非官方镜像仓库"><span class="nav-number">3.5.</span> <span class="nav-text">官方和非官方镜像仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像命名和标签"><span class="nav-number">3.6.</span> <span class="nav-text">镜像命名和标签</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为镜像打多个标签"><span class="nav-number">3.6.1.</span> <span class="nav-text">为镜像打多个标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过-CLI-方式搜索-Docker-Hub"><span class="nav-number">3.6.2.</span> <span class="nav-text">通过 CLI 方式搜索 Docker Hub</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#镜像和分层"><span class="nav-number">3.6.3.</span> <span class="nav-text">镜像和分层</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -892,7 +995,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">25.5k</span>
+    <span title="Site words total count">28.7k</span>
   
 </div>
 
