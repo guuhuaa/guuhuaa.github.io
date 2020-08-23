@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  795
+                  1.8k
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3
+                  7
                 </span>
               
             </div>
@@ -506,6 +506,85 @@
 <li><code>/bin/bash</code>：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 /bin/bash</li>
 </ul>
 <p>退出终端，直接输入exit 或者 ctrl+D</p>
+<h5 id="启动已停止运行的容器"><a href="#启动已停止运行的容器" class="headerlink" title="启动已停止运行的容器"></a>启动已停止运行的容器</h5><p>查看所有容器命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>使用docker start启动一个已停止的容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start &lt;ID&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h5><p>很多时候，我们希望docker的服务是在后台运行的，可以通过 <code>-d</code>指定容器的运行模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -itd --name ubuntu-test ubuntu /bin/bash</span><br><span class="line">b3e5baeb39bcfece0ebf57f4c1ed02cdba795b7831f8bc4535761b5382aece14</span><br></pre></td></tr></table></figure>
+
+<p>加了 <code>-d</code>参数默认不会进入容器，想要进入容器需要使用指令<code>docker exec</code></p>
+<h5 id="停止一个容器"><a href="#停止一个容器" class="headerlink" title="停止一个容器"></a>停止一个容器</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop &lt;ID&gt;</span><br></pre></td></tr></table></figure>
+
+<p>停止之后，也可以使用restart重启容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart &lt;ID&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h5><p>在使用 <code>-d</code>参数时，容器启动后会进入后台，此时想要进入容器，可以通过以下指令进入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker attach &lt;ID&gt;</span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> //推荐使用，此命令推出容器终端，不会导致容器的停止</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker attach df09</span><br><span class="line">root@df09891647ab:/<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it e456 /bin/bash</span><br><span class="line">root@e456ea68b87e:/<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="导出和导入容器"><a href="#导出和导入容器" class="headerlink" title="导出和导入容器"></a>导出和导入容器</h5><h6 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h6><p>导出本地容器，使用docker export命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">export</span> e456 &gt; ubuntu.tar</span><br><span class="line">$ ls</span><br><span class="line">ubuntu.tar</span><br></pre></td></tr></table></figure>
+
+<h6 id="导入容器快照"><a href="#导入容器快照" class="headerlink" title="导入容器快照"></a>导入容器快照</h6><p>使用docker import从容器快照文件中再导入为镜像，以下实例将快照文件ubuntu.tar导入到镜像test/ubuntu:v1</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker import ubuntu.tar <span class="built_in">test</span>/ubuntu:v1</span><br><span class="line">sha256:524cf96593ecb4e5d50a1c64311af7c554b97f471a60feaec4fd5fd4b11646e7</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h5><p>使用<code>docker rm</code> <code>-f</code>是强制删除</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm -f &lt;ID&gt;</span><br></pre></td></tr></table></figure>
+
+<p>下面的命令可以清理掉所有处于终止状态的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker container prune</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行web应用"><a href="#运行web应用" class="headerlink" title="运行web应用"></a>运行web应用</h4><p>尝试使用docker构建一个web应用程序，接下来将在docker容器中运行一个python flash应用来运行一个web应用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull training/webapp</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from training/webapp</span><br><span class="line">Image docker.io/training/webapp:latest uses outdated schema1 manifest format. Please upgrade to a schema2 imag</span><br><span class="line">e <span class="keyword">for</span> better future compatibility. More information at https://docs.docker.com/registry/spec/deprecated-schema</span><br><span class="line">-v1/</span><br><span class="line">e190868d63f8: Pull complete</span><br><span class="line">909cd34c6fd7: Pull complete</span><br><span class="line">0b9bfabab7c1: Pull complete</span><br><span class="line">a3ed95caeb02: Pull complete</span><br><span class="line">10bbbc0fc0ff: Pull complete</span><br><span class="line">fca59b508e9f: Pull complete</span><br><span class="line">e7ae2541b15b: Pull complete</span><br><span class="line">9dd97ef58ce9: Pull complete</span><br><span class="line">a4c1b0cb7af7: Pull complete</span><br><span class="line">Digest: sha256:06e9c1983bd6d5db5fba376ccd63bfa529e8d02f23d5079b8f74a616308fb11d</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> training/webapp:latest</span><br><span class="line">docker.io/training/webapp:latest</span><br><span class="line"></span><br><span class="line">$ docker run -d -P training/webapp python app.py</span><br><span class="line">11ff0a880f2b8ecc59961df30d6d41db6dde603ed14efa3c063a8a86db73e673</span><br></pre></td></tr></table></figure>
+
+<p>若未指定版本，docker会自动下载latest版本</p>
+<p>参数说明：</p>
+<ul>
+<li><code>-d</code> 让容器在后台运行</li>
+<li><code>-P</code> 将容器内部使用的网络端口映射到我们使用的主机上</li>
+</ul>
+<h5 id="查看web应用容器"><a href="#查看web应用容器" class="headerlink" title="查看web应用容器"></a>查看web应用容器</h5><p>docker ps 来查看我们正在运行的容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~<span class="comment">#  docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             ...        PORTS                 </span><br><span class="line">d3d5e39ed9d3        training/webapp     <span class="string">"python app.py"</span>     ...        0.0.0.0:32768-&gt;5000/tcp</span><br></pre></td></tr></table></figure>
+
+<p>这里多了端口信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PORTS</span><br><span class="line">0.0.0.0:32768-&gt;5000/tcp</span><br></pre></td></tr></table></figure>
+
+<p>Docker 开放了 5000 端口（默认 Python Flask 端口）映射到主机端口 32768上。这时我们可以通过浏览器访问WEB应用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IP:32768</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过 -p 参数来设置不一样的端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker run -d -p 5000:5000 training/webapp python app.py</span><br></pre></td></tr></table></figure>
+
+<h5 id="网络端口的快捷方式"><a href="#网络端口的快捷方式" class="headerlink" title="网络端口的快捷方式"></a>网络端口的快捷方式</h5><p>通过 <strong>docker ps</strong> 命令可以查看到容器的端口映射，<strong>docker</strong> 还提供了另一个快捷方式 <strong>docker port</strong>，使用 <strong>docker port</strong> 可以查看指定 （ID 或者名字）容器的某个确定端口映射到宿主机的端口号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker port e35</span><br><span class="line">5000/tcp -&gt; 0.0.0.0:5000</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看-WEB-应用程序日志"><a href="#查看-WEB-应用程序日志" class="headerlink" title="查看 WEB 应用程序日志"></a>查看 WEB 应用程序日志</h5><p>docker logs [ID或者名字] 可以查看容器内部的标准输出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs -f e35</span><br><span class="line"> * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<p><strong>-f:</strong> 让 <strong>docker logs</strong> 像使用 <strong>tail -f</strong> 一样来输出容器内部的标准输出</p>
+<h5 id="查看web应用程序"><a href="#查看web应用程序" class="headerlink" title="查看web应用程序"></a>查看web应用程序</h5><p>使用docker inspect来查看docker底层信息。会返回一个json文件记录着docker容器的配置和状态信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ docker inspect e35</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Id"</span>: <span class="string">"e35b1e7efab3112941958924dfd2a6815ba7f86239b6b1475247272fa8950872"</span>,</span><br><span class="line">        <span class="string">"Created"</span>: <span class="string">"2020-05-15T09:40:38.611719555Z"</span>,</span><br><span class="line">        <span class="string">"Path"</span>: <span class="string">"python"</span>,</span><br><span class="line">        <span class="string">"Args"</span>: [</span><br><span class="line">            <span class="string">"app.py"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"State"</span>: &#123;</span><br><span class="line">            <span class="string">"Status"</span>: <span class="string">"running"</span>,</span><br><span class="line">            <span class="string">"Running"</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="string">"Paused"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Restarting"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"OOMKilled"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Dead"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"Pid"</span>: 4938,</span><br><span class="line">            <span class="string">"ExitCode"</span>: 0,</span><br><span class="line">            <span class="string">"Error"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="string">"StartedAt"</span>: <span class="string">"2020-05-15T09:40:38.94795368Z"</span>,</span><br><span class="line">            <span class="string">"FinishedAt"</span>: <span class="string">"0001-01-01T00:00:00Z"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+
+<h5 id="停止-WEB-应用容器"><a href="#停止-WEB-应用容器" class="headerlink" title="停止 WEB 应用容器"></a>停止 WEB 应用容器</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop e35</span><br><span class="line">e35</span><br></pre></td></tr></table></figure>
+
+<h5 id="重启web应用容器"><a href="#重启web应用容器" class="headerlink" title="重启web应用容器"></a>重启web应用容器</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker restart e35</span><br><span class="line">e35</span><br></pre></td></tr></table></figure>
+
+<h5 id="移除web应用容器"><a href="#移除web应用容器" class="headerlink" title="移除web应用容器"></a>移除web应用容器</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker rm -f e35</span><br><span class="line">e35</span><br></pre></td></tr></table></figure>
+
+<h4 id="Docker镜像使用"><a href="#Docker镜像使用" class="headerlink" title="Docker镜像使用"></a>Docker镜像使用</h4><blockquote>
+<p>当运行容器时，使用的镜像如果在本地中不存在，docker 就会自动从 docker 镜像仓库中下载，默认是从 Docker Hub 公共镜像源下载</p>
+</blockquote>
+<p>本节主要会学习：</p>
+<ul>
+<li>管理和使用本地Docker主机镜像</li>
+<li>创建镜像</li>
+</ul>
 
       
     </div>
@@ -545,6 +624,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/15/linuxa%C2%AD%E5%86%8D%C2%A6%E5%AD%A6%E4%B9%A0/" rel="prev" title="linuxå­再¦学习">
+                linuxå­再¦学习 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -628,7 +711,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -699,7 +782,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-hello-world"><span class="nav-number">1.</span> <span class="nav-text">Docker hello world</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hello-world"><span class="nav-number">1.1.</span> <span class="nav-text">hello world</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行交互式容器"><span class="nav-number">1.2.</span> <span class="nav-text">运行交互式容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动容器"><span class="nav-number">1.3.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#停止容器"><span class="nav-number">1.4.</span> <span class="nav-text">停止容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-容器使用"><span class="nav-number">2.</span> <span class="nav-text">Docker 容器使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker客户端"><span class="nav-number">2.1.</span> <span class="nav-text">docker客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器使用"><span class="nav-number">2.2.</span> <span class="nav-text">容器使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取镜像"><span class="nav-number">2.2.1.</span> <span class="nav-text">获取镜像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动容器-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">启动容器</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-hello-world"><span class="nav-number">1.</span> <span class="nav-text">Docker hello world</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hello-world"><span class="nav-number">1.1.</span> <span class="nav-text">hello world</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行交互式容器"><span class="nav-number">1.2.</span> <span class="nav-text">运行交互式容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动容器"><span class="nav-number">1.3.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#停止容器"><span class="nav-number">1.4.</span> <span class="nav-text">停止容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-容器使用"><span class="nav-number">2.</span> <span class="nav-text">Docker 容器使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker客户端"><span class="nav-number">2.1.</span> <span class="nav-text">docker客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器使用"><span class="nav-number">2.2.</span> <span class="nav-text">容器使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取镜像"><span class="nav-number">2.2.1.</span> <span class="nav-text">获取镜像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动容器-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动已停止运行的容器"><span class="nav-number">2.2.3.</span> <span class="nav-text">启动已停止运行的容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#后台运行"><span class="nav-number">2.2.4.</span> <span class="nav-text">后台运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#停止一个容器"><span class="nav-number">2.2.5.</span> <span class="nav-text">停止一个容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进入容器"><span class="nav-number">2.2.6.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#导出和导入容器"><span class="nav-number">2.2.7.</span> <span class="nav-text">导出和导入容器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#导出容器"><span class="nav-number">2.2.7.1.</span> <span class="nav-text">导出容器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#导入容器快照"><span class="nav-number">2.2.7.2.</span> <span class="nav-text">导入容器快照</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除容器"><span class="nav-number">2.2.8.</span> <span class="nav-text">删除容器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行web应用"><span class="nav-number">2.3.</span> <span class="nav-text">运行web应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看web应用容器"><span class="nav-number">2.3.1.</span> <span class="nav-text">查看web应用容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络端口的快捷方式"><span class="nav-number">2.3.2.</span> <span class="nav-text">网络端口的快捷方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看-WEB-应用程序日志"><span class="nav-number">2.3.3.</span> <span class="nav-text">查看 WEB 应用程序日志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看web应用程序"><span class="nav-number">2.3.4.</span> <span class="nav-text">查看web应用程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#停止-WEB-应用容器"><span class="nav-number">2.3.5.</span> <span class="nav-text">停止 WEB 应用容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重启web应用容器"><span class="nav-number">2.3.6.</span> <span class="nav-text">重启web应用容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移除web应用容器"><span class="nav-number">2.3.7.</span> <span class="nav-text">移除web应用容器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker镜像使用"><span class="nav-number">2.4.</span> <span class="nav-text">Docker镜像使用</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -733,7 +816,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">30.2k</span>
+    <span title="Site words total count">31.2k</span>
   
 </div>
 
