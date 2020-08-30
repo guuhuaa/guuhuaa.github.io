@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="动态规划," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="本文会对hexo一些常用的命令进行详细说明 主要参考 hexo官方文档">
+<meta name="description" content="算法导论笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo 指令详解">
-<meta property="og:url" content="http://yoursite.com/2020/05/09/hexo-%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:title" content="Dynamic Programming">
+<meta property="og:url" content="http://yoursite.com/2020/08/30/Dynamic-Programming/index.html">
 <meta property="og:site_name" content="TT Blog">
-<meta property="og:description" content="本文会对hexo一些常用的命令进行详细说明 主要参考 hexo官方文档">
+<meta property="og:description" content="算法导论笔记">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-09T14:35:19.000Z">
-<meta property="article:modified_time" content="2020-05-09T14:35:19.000Z">
+<meta property="article:published_time" content="2020-08-30T08:02:25.000Z">
+<meta property="article:modified_time" content="2020-08-30T08:02:25.000Z">
 <meta property="article:author" content="Juntao">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary">
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/05/09/hexo-指令详解/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/08/30/Dynamic-Programming/"/>
 
 
 
 
 
-  <title>hexo 指令详解 | TT Blog</title>
+  <title>Dynamic Programming | TT Blog</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/09/hexo-%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/30/Dynamic-Programming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Juntao">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hexo 指令详解</h1>
+          <h1 class="post-title" itemprop="name headline">Dynamic Programming</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-09T22:35:19+08:00">
-                2020-05-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-30T16:02:25+08:00">
+                2020-08-30
               </time>
             
 
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2020-05-09T22:35:19+08:00">
-                2020-05-09
+              <time title="Post modified" itemprop="dateModified" datetime="2020-08-30T16:02:25+08:00">
+                2020-08-30
               </time>
             
           </span>
@@ -355,8 +355,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/05/09/hexo-%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/05/09/hexo-%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3/" itemprop="commentCount"></span>
+                <a href="/2020/08/30/Dynamic-Programming/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/30/Dynamic-Programming/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -364,7 +364,7 @@
 
           
           
-             <span id="/2020/05/09/hexo-%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="leancloud_visitors" data-flag-title="hexo 指令详解">
+             <span id="/2020/08/30/Dynamic-Programming/" class="leancloud_visitors" data-flag-title="Dynamic Programming">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  762
+                  2.6k
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3
+                  11
                 </span>
               
             </div>
@@ -427,153 +427,94 @@
 
       
         <blockquote>
-<p>本文会对hexo一些常用的命令进行详细说明</p>
-<p>主要参考 <a href="https://hexo.io/zh-cn/docs/commands" target="_blank" rel="noopener">hexo官方文档</a></p>
+<p>算法导论笔记</p>
 </blockquote>
 <a id="more"></a>
 
-<h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>programming 指的是一种表格法，并非编写计算机程序</p>
+</blockquote>
+<p>动态规划与分治方法相似，都是通过组合子问题的解来求解原问题。但是分治法将问题划分为互不相交的子问题。而动态规划是应用与子问题重叠的情况，即不同的子问题有着公共的子子问题（子问题的求解是递归进行的，将其划分为更小的子子问题）。</p>
+<p>动态规划通常用于求解最优化问题，这类问题通常可以有很多可行解，每个解都有一个值，我们希望寻找具有最优值的解。我们将这样的解称之为问题的一个最优解，而不是最优解，因为最优解不唯一。</p>
+<p><strong>动态规划设计步骤</strong></p>
+<ol>
+<li>刻画一个最优解的结构特征</li>
+<li>递归地定义最优解的值 </li>
+<li>计算最优解的值，通常采用自底向上的方法</li>
+<li>利用计算出的信息构造出一个最优解</li>
+</ol>
+<h3 id="钢条切割"><a href="#钢条切割" class="headerlink" title="钢条切割"></a>钢条切割</h3><p><strong>问题</strong>：给定一段长度为n英寸的钢条和一个价格表 $p_i(i=1,2,…,n)$，求切割钢条方案，使得收益$r_n$最大。</p>
+<p><strong>分析问题</strong>：长度为n的钢条共有$2^{n-1}$种不同的切割方案（如果没有切割顺序则包含重复方案）（在每个节点我们总是可以选择切割或者不切割）</p>
+<p>我们可以用更短的钢条的最优切割收益来描述它：<br>$$<br>r_n = max(p_n,r_1+r_{n-1}, r_2+r_{n-2}, \cdots,r_{n-1}+r_1)<br>$$<br>第一种方案表示不切割，其余方案表示：对每个$i=1,2,..,n-1$，首先将钢条切割为长度为$i$和$n-i$的两段，接着求$r_i$和$r_{n-i}$.因为无法预知哪种方案会获得最优收益，我们必须考虑所有可能的$i$，选取其中收益最大者。</p>
+<p>可以看到，为了求解规模为n的原问题，我们先求解形式完全一样，但规模更小的子问题。即当完成首次切割后，我们将两段钢条看做两个独立的钢条切割问题。我们通过组合两个相关子问题的最优解，并在所有可能的两端钢条切割方案选取收益最大者，构成原问题的最优解。这里我们称钢条切割问题满足<strong>最优子结构（optimal substructure）</strong>：<em>问题的最优解由相关的子问题的最优解组合而成，而这些子问题可以独立求解。</em></p>
+<p>除了上面的方法，钢条切割还有一个更为简单的递归方法：我们先将钢条从左边切割下长度为$i$的一段，只对优鞭剩下的长度为$n-i$的一段继续进行切割（递归求解）<br>$$<br>r_n = max(p_i+r_{n-i})(1\leq i \leq n )<br>$$<br><strong>自顶向下递归实现</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># p:价格数组</span><br><span class="line"># n：钢条长度</span><br><span class="line">CUT-ROD(p,n)</span><br><span class="line">	if n &#x3D;&#x3D; 0</span><br><span class="line">		return 0</span><br><span class="line">	else</span><br><span class="line">		q &#x3D; -Inf</span><br><span class="line">		for i &#x3D; 1 to n</span><br><span class="line">			q &#x3D; max(q, p[i]+CUT-ROD(p,n-i))</span><br><span class="line">		return q</span><br></pre></td></tr></table></figure>
 
-<p>新建一个网站。如果没有设置 <code>folder</code> ，Hexo 默认在目前的文件夹建立网站</p>
-<h4 id="new"><a href="#new" class="headerlink" title="new"></a>new</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>不难证明CUT-ROD的运行时间是n的指数函数，存在重复计算子问题。</p>
+<p><strong>动态规划</strong></p>
+<p>可知，朴素递归算法之所以效率低下，是因为反复求解相同的子问题。而动态规划方法是付出额外的内存空间来节省时间，是典型的时空权衡（time-memory trade-off）的例子。在这个问题上，动态规划的方法可以将指数时间的解转化为一个多项式时间的解。如果子问题的数量是输入规模的多项式函数，而我们可以在多项式时间内求解出每个子问题，那么总运行时间就是多项式的。</p>
+<ol>
+<li><p>带备忘的自顶向下法（top-down with memoization）(备忘的意思，源自memo)</p>
+<p>在递归的方法下，保存每个子问题的求解，这样不用反复求解子问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MEMOIZED-CUT_ROD(p,n)</span><br><span class="line">	r &#x3D; array[0..n]</span><br><span class="line">	for i &#x3D; 0 to n</span><br><span class="line">		r[i] &#x3D; -inf</span><br><span class="line">	return MEMOIZED-CUT-ROD-AUX(p,n,r)</span><br><span class="line">MEMOIZED-CUT-ROD-AUX(p,n,r)</span><br><span class="line">	if r[n] &gt; 0</span><br><span class="line">		return r[n]</span><br><span class="line">	if n &#x3D;&#x3D; 0</span><br><span class="line">		return 0</span><br><span class="line">	else</span><br><span class="line">		q &#x3D; -inf</span><br><span class="line">		for i &#x3D; 1 to n</span><br><span class="line">			q &#x3D; max(q, p[i]+MEMOIZED-CUT-ROD-AUX(p,n-i,r))</span><br><span class="line">		r[n] &#x3D; q</span><br><span class="line">		return q</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自底向下法（bottom-up method）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BOTTOM-UP-CUT-ROD(p,n)</span><br><span class="line">	r &#x3D; array[0..n]</span><br><span class="line">	for i &#x3D; 0 to n</span><br><span class="line">		r[i] &#x3D; 0</span><br><span class="line">		for j &#x3D; 0 to i</span><br><span class="line">			r[i] &#x3D; max(r[i], p[j] + r[i-j])</span><br><span class="line">	return r[n]</span><br></pre></td></tr></table></figure>
 
-<p>新建一篇文章。如果没有设置 <code>layout</code> 的话，默认使用 <a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">_config.yml</a> 中的 <code>default_layout</code> 参数代替。如果标题包含空格的话，请使用引号括起来</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"post title with whitespace"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>重构解</strong></p>
+<p>前面虽然计算出了最佳的收益，但是还没有给出切割方案</p>
+<p>以自底向下法为例(新增s数组保存第一段的切割长度)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">BOTTOM-UP-CUT-ROD(p,n)</span><br><span class="line">	r &#x3D; array[0..n]</span><br><span class="line">	s &#x3D; array[0..n]</span><br><span class="line">	for i &#x3D; 0 to n</span><br><span class="line">		r[i] &#x3D; 0</span><br><span class="line">		for j &#x3D; 0 to i</span><br><span class="line">			if p[j] + r[i-j] &gt; r[i]:</span><br><span class="line">				r[i] &#x3D; p[j] + r[i-j]</span><br><span class="line">				s[i] &#x3D; j</span><br><span class="line">	return r and s</span><br><span class="line"></span><br><span class="line">PRINT-CUT-ROD(p,n)</span><br><span class="line">	r, s &#x3D; BOTTOM-UP-CUT-ROD(p,n)</span><br><span class="line">	while n &gt; 0</span><br><span class="line">		print(s[n-1])</span><br><span class="line">		n &#x3D; n - s[n-1]</span><br></pre></td></tr></table></figure>
 
-<table>
-<thead>
-<tr>
-<th align="left">参数</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-p</code>, <code>--path</code></td>
-<td align="left">自定义新文章的路径</td>
-</tr>
-<tr>
-<td align="left"><code>-r</code>, <code>--replace</code></td>
-<td align="left">如果存在同名文章，将其替换</td>
-</tr>
-<tr>
-<td align="left"><code>-s</code>, <code>--slug</code></td>
-<td align="left">文章的 Slug，作为新文章的文件名和发布后的 URL</td>
-</tr>
-</tbody></table>
-<p>默认情况下，Hexo 会使用文章的标题来决定文章文件的路径。对于独立页面来说，Hexo 会创建一个以标题为名字的目录，并在目录中放置一个 <code>index.md</code> 文件。你可以使用 <code>--path</code> 参数来覆盖上述行为、自行决定文件的目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page --path about/me <span class="string">"About me"</span></span><br></pre></td></tr></table></figure>
 
-<p>以上命令会创建一个 <code>source/about/me.md</code> 文件，同时 Front Matter 中的 title 为 <code>&quot;About me&quot;</code></p>
-<p>注意！title 是必须指定的！如果你这么做并不能达到你的目的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page --path about&#x2F;me</span><br></pre></td></tr></table></figure>
 
-<p>此时 Hexo 会创建 <code>source/_posts/about/me.md</code>，同时 <code>me.md</code> 的 Front Matter 中的 title 为 <code>&quot;page&quot;</code>。这是因为在上述命令中，hexo-cli 将 <code>page</code> 视为指定文章的标题、并采用默认的 <code>layout</code></p>
-<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>问题：给定n个矩阵的链$&lt;A_1,A_2,…,A_n&gt;$，矩阵$A_i$的规模为$p_{i-1} × p_i (1 \leq i \leq n)$，求完全括号化方案，使得乘积$A_1A_2…A_n$所需标量乘法次数最少。</p>
+<blockquote>
+<p>完全括号化（fully parenthesized）：它是单一矩阵，或者是两个完全括号化的矩阵乘积链的积，且已外加括号。</p>
+</blockquote>
+<p><strong>刻画一个最优解的结构特征和递归地定义最优解的值</strong></p>
+<p>假设矩阵链$A_iA_{i+1}…A_j$的第一个最优分割点为$k,i&lt;=k&lt;j$，$s[i][j]$ 代表矩阵$A_iA_{i+1}…A_j$的最少标量乘法次数。则：<br>$$<br>s[i][j] = s[i][k] + s[k+1][j]+p_{i-1}p_kp_j \<br>s[i][i] = 0<br>$$<br>自底向下法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">BOTTOM-UP(p)</span><br><span class="line">	s &#x3D; array[1..n][1..n]</span><br><span class="line">	t &#x3D; array[1..n-1][2..n]</span><br><span class="line">	for i &#x3D; 1 to n</span><br><span class="line">		s[i][i] &#x3D; 0</span><br><span class="line">	for k &#x3D; 2 to n</span><br><span class="line">		for i &#x3D; 1 to n - k + 1</span><br><span class="line">			j &#x3D; k + i - 1</span><br><span class="line">			s[i][j] &#x3D; Inf</span><br><span class="line">			for m &#x3D; i to j-1</span><br><span class="line">				q &#x3D; s[i][m] + s[m+1][j] + p[i_1]p[m]p[j]</span><br><span class="line">				if s[i][j] &gt;  q</span><br><span class="line">					s[i][j] &#x3D; q</span><br><span class="line">					t[i][j] &#x3D; m</span><br><span class="line">	return s and t</span><br></pre></td></tr></table></figure>
 
-<p>生成静态文件。</p>
-<table>
-<thead>
-<tr>
-<th align="left">选项</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-d</code>, <code>--deploy</code></td>
-<td align="left">文件生成后立即部署网站</td>
-</tr>
-<tr>
-<td align="left"><code>-w</code>, <code>--watch</code></td>
-<td align="left">监视文件变动</td>
-</tr>
-<tr>
-<td align="left"><code>-b</code>, <code>--bail</code></td>
-<td align="left">生成过程中如果发生任何未处理的异常则抛出异常</td>
-</tr>
-<tr>
-<td align="left"><code>-f</code>, <code>--force</code></td>
-<td align="left">强制重新生成文件 Hexo 引入了差分机制，如果 <code>public</code> 目录存在，那么 <code>hexo g</code> 只会重新生成改动的文件。 使用该参数的效果接近 <code>hexo clean &amp;&amp; hexo generate</code></td>
-</tr>
-<tr>
-<td align="left"><code>-c</code>, <code>--concurrency</code></td>
-<td align="left">最大同时生成文件的数量，默认无限制</td>
-</tr>
-</tbody></table>
-<p>该命令可以简写为</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
 
-<h4 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
 
-<p>发表草稿</p>
-<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+<h3 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h3><p>如果一个问题的最优解包含其子问题的最优解，我们就称此问题具有最优子结构性质。</p>
+<p><strong>通用模式</strong>：</p>
+<ol>
+<li>证明问题最优解的第一个组成部分是做出一个选择，例如，选择钢条第一次切割位置，选择矩阵链的划分位置等。做出这次选会产生一个或多个待解的子问题</li>
+<li>对于一个给定问题，在其可能的第一步选择中，你假定已经知道哪种选择才会得到最优解。你现在并不关心这种选择具体是如何得到的，只是假定已经知道了这种选择</li>
+<li>给定可获得最优解的选择后，你确定这次选择会产生哪些子问题，以及如何最好地刻画子问题空间</li>
+<li>利用“剪切-粘贴”(cut-and-paste)技术证明：作为构成原问题最优解的组成部分，每个子问题的解就是它本身的最优解。</li>
+</ol>
+<p><strong><em>一个刻画子问题空间的好经验是：保持子问题空间尽可能简单，只在必要时扩展它。</em></strong></p>
+<h3 id="重叠子问题"><a href="#重叠子问题" class="headerlink" title="重叠子问题"></a>重叠子问题</h3><p>适合用动态规划方法求解的最优化问题应该具备的第二个性质是子问题空间必须足够小，即问题的递归算法会反复求解相同的子问题，而不是一直生成新的子问题。一般来说不同的子问题的总数是输入规模的多项式函数为好。</p>
+<p>如果递归算法反复求解相同的子问题，我们就称最优化问题具有重叠子问题（overlapping subproblems）性质</p>
+<p>与之相对的是分治方法求解的问题通常在递归的每一步都生成全新的子问题。</p>
+<h3 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h3><p>问题：给定两个序列$X=&lt;x_1,x_2,…,x_m&gt;$和$Y=&lt;y_1,y_2,…,y_n&gt;$，求X和Y长度最长的公共子序列</p>
+<p>1.<strong>刻画最长公共子序列的特征</strong></p>
+<p>如果用暴力搜索求解LCS问题，就要穷举X的所有子序列，对每个子序列检查是否是Y的子序列，然后再记录最长的子序列。X的子序列有$2^m$个，因此暴力搜索的运行时间也是指数阶。</p>
+<p><strong>定理</strong>：（LCS的最优子结构）令$X=&lt;x_1,x_2,…,x_m&gt;$和$Y=&lt;y_1,y_2,…,y_n&gt;$为两个序列，$X=&lt;x_1,x_2,…,x_m&gt;$和$Z=&lt;z_1,z_2,…,z_k&gt;$为X和Y的任意LCS</p>
+<ol>
+<li><p>如果$x_m = y_n$，则$z_k = x_m = y_n$且$Z_{k-1}$是$X_{m-1}$和$Y_{n-1}$的一个LCS</p>
+</li>
+<li><p>如果$x_m \neq y_n$，那么$z_k \neq x_m$，意味着$Z_k$是$X_{m-1}$和$Y_n$的一个LCS</p>
+</li>
+<li><p>如果$x_m \neq  y_n$，那么$z_k \neq y_n$，意味着$Z_k$是$X_{m}$和$Y_{n-1}$的一个LCS</p>
+</li>
+</ol>
+<p>2.<strong>递归解</strong></p>
+<p>由定理可知，在求X和Y的一个LCS时，我们需要求解一个或两个子问题。</p>
+<p>我们定义$c[i,j]$表示$X_i$和$Y_j$的LCS的长度，则：<br>$$<br>c[i,j] =<br>\begin{matrix}<br>0 &amp; \text{if  i=0 or j=0}<br>\<br>c[i-1][j-1] + 1 &amp; \text{if  i,j&gt;0 and $x_i=y_k$}<br>\<br>max(c[i,j-1],c[i-1,j]) &amp; \text{if  i,j&gt;0 and  $x_i \neq  y_j$ }<br>\end{matrix}<br>$$<br>3.<strong>计算LCS的长度</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">LCS-LENGTH(X,Y)</span><br><span class="line">	m &#x3D; X.length</span><br><span class="line">	n &#x3D; Y.length</span><br><span class="line">	b &#x3D; array[1..m,1..n]</span><br><span class="line">	c &#x3D; array[0..m,0..n]</span><br><span class="line">	for i &#x3D; 0 to m</span><br><span class="line">		c[i,0] &#x3D; 0</span><br><span class="line">    for j &#x3D; 1 to n</span><br><span class="line">    	c[0,j] &#x3D; 0</span><br><span class="line">    for i &#x3D; 1 to m</span><br><span class="line">    	for j &#x3D; 1 to n</span><br><span class="line">    		if x[i] &#x3D; y[j]</span><br><span class="line">    			c[i,j] &#x3D; c[i-1,j-1] + 1</span><br><span class="line">    			b[i,j] &#x3D; &quot;\&quot;</span><br><span class="line">    		elif c[i-1,j] &gt;&#x3D; c[i,j-1]</span><br><span class="line">    			c[i,j] &#x3D; c[i-1,j]</span><br><span class="line">    			b[i,j] &#x3D; &quot;|&quot;</span><br><span class="line">    		else </span><br><span class="line">    			c[i,j] &#x3D; c[i,j-1]</span><br><span class="line">    			b[i,j] &#x3D; &quot;-&quot;</span><br><span class="line">    return b and c</span><br></pre></td></tr></table></figure>
 
-<p>启动服务器。默认情况下，访问网址为： <code>http://localhost:4000/</code></p>
-<table>
-<thead>
-<tr>
-<th align="left">选项</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-p</code>, <code>--port</code></td>
-<td align="left">重设端口</td>
-</tr>
-<tr>
-<td align="left"><code>-s</code>, <code>--static</code></td>
-<td align="left">只使用静态文件</td>
-</tr>
-<tr>
-<td align="left"><code>-l</code>, <code>--log</code></td>
-<td align="left">启动日记记录，使用覆盖记录格式</td>
-</tr>
-</tbody></table>
-<h4 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<p>4.<strong>构造LCS</strong></p>
+<p>我们可以用表b快速构造LCS，只需要从b[m,n]开始，并按照箭头的方向追溯下去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PRINT-LCS(b,X,i,j)</span><br><span class="line">	while i &gt; 0 and j &gt; 0</span><br><span class="line">		if b[i,j] &#x3D; &quot;\&quot;</span><br><span class="line">			print X[i]</span><br><span class="line">			i &#x3D; i - 1</span><br><span class="line">			j &#x3D; j - 1</span><br><span class="line">		elif b[i,j] &#x3D; &quot;|&quot;</span><br><span class="line">			i &#x3D; i - 1</span><br><span class="line">		else</span><br><span class="line">			j &#x3D; j - 1</span><br></pre></td></tr></table></figure>
 
-<p>部署网站。</p>
-<table>
-<thead>
-<tr>
-<th align="left">参数</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-g</code>, <code>--generate</code></td>
-<td align="left">部署之前预先生成静态文件</td>
-</tr>
-</tbody></table>
-<h4 id="render"><a href="#render" class="headerlink" title="render"></a>render</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
-
-<p>渲染文件。</p>
-<table>
-<thead>
-<tr>
-<th align="left">参数</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-o</code>, <code>--output</code></td>
-<td align="left">设置输出路径</td>
-</tr>
-</tbody></table>
-<h4 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
-<p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)</p>
-<p>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令</p>
-<h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo list &lt;<span class="built_in">type</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<p>列出网站资料</p>
-<h4 id="version"><a href="#version" class="headerlink" title="version"></a>version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
-
-<p>显示 Hexo 版本</p>
-<h4 id="显示草稿"><a href="#显示草稿" class="headerlink" title="显示草稿"></a>显示草稿</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --draft</span><br></pre></td></tr></table></figure>
-
-<p>显示 <code>source/_drafts</code> 文件夹中的草稿文章</p>
-<h4 id="自定义-CWD"><a href="#自定义-CWD" class="headerlink" title="自定义 CWD"></a>自定义 CWD</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --cwd /path/to/cwd</span><br></pre></td></tr></table></figure>
-
-<p>自定义当前工作目录（Current working directory）的路径</p>
+<p><strong>算法改进</strong></p>
+<p>在此问题上，我们完全可以去掉表b，只需要表c就能回溯出LCS</p>
 
       
     </div>
@@ -591,7 +532,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
           
         </div>
       
@@ -604,8 +545,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/05/09/%E8%A7%A3%E5%86%B3hexo-leancloud%E8%AE%BF%E5%AE%A2%E6%95%B0%E9%87%8F%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA/" rel="next" title="解决hexo leancloud访客数量无法显示">
-                <i class="fa fa-chevron-left"></i> 解决hexo leancloud访客数量无法显示
+              <a href="/2020/05/15/linux%E5%86%8D%E5%AD%A6%E4%B9%A0/" rel="next" title="linux再学习">
+                <i class="fa fa-chevron-left"></i> linux再学习
               </a>
             
           </div>
@@ -613,10 +554,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/05/09/hexo-%E9%85%8D%E7%BD%AE%E7%AB%99%E7%82%B9%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/" rel="prev" title="hexo 配置站点文件详解">
-                hexo 配置站点文件详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -771,7 +708,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#init"><span class="nav-number">1.</span> <span class="nav-text">init</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#new"><span class="nav-number">2.</span> <span class="nav-text">new</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#generate"><span class="nav-number">3.</span> <span class="nav-text">generate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#publish"><span class="nav-number">4.</span> <span class="nav-text">publish</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server"><span class="nav-number">5.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deploy"><span class="nav-number">6.</span> <span class="nav-text">deploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#render"><span class="nav-number">7.</span> <span class="nav-text">render</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clean"><span class="nav-number">8.</span> <span class="nav-text">clean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list"><span class="nav-number">9.</span> <span class="nav-text">list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#version"><span class="nav-number">10.</span> <span class="nav-text">version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示草稿"><span class="nav-number">11.</span> <span class="nav-text">显示草稿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义-CWD"><span class="nav-number">12.</span> <span class="nav-text">自定义 CWD</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#钢条切割"><span class="nav-number">1.</span> <span class="nav-text">钢条切割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵链乘法"><span class="nav-number">2.</span> <span class="nav-text">矩阵链乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最优子结构"><span class="nav-number">3.</span> <span class="nav-text">最优子结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重叠子问题"><span class="nav-number">4.</span> <span class="nav-text">重叠子问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最长公共子序列"><span class="nav-number">5.</span> <span class="nav-text">最长公共子序列</span></a></li></ol></div>
             
 
           </div>
