@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://kaiiiz.github.io/hexo-theme-book-demo/ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <link rel="icon" href="../static/favicon.png">
+        <title>MySQL 故障诊断：教你快速定位加锁的 SQL.md</title>
+        <!-- Spectre.css framework -->
+        <link rel="stylesheet" href="../static/index.css">
+        <!-- theme css & js -->
+        <meta name="generator" content="Hexo 4.2.0">
+    </head>
+
+<body>
+
+<div class="book-container">
+    <div class="book-sidebar">
+        <div class="book-brand">
+            <a href="../index.html">
+                <img src="../static/favicon.png">
+                <span>技术文章摘抄</span>
+            </a>
+        </div>
+        <div class="book-menu uncollapsible">
+            <ul class="uncollapsible">
+                <li><a href="../index.html" class="current-tab">首页</a></li>
+            </ul>
+
+            <ul class="uncollapsible">
+                <li><a href="../index.html">上一级</a></li>
+            </ul>
+
+            <ul class="uncollapsible">
+                <li>
+
+                    
+                    <a href="AQS&#32;万字图文全面解析.md">AQS 万字图文全面解析.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Docker&#32;镜像构建原理及源码分析.md">Docker 镜像构建原理及源码分析.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="ElasticSearch&#32;小白从入门到精通.md">ElasticSearch 小白从入门到精通.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="JVM&#32;CPU&#32;Profiler技术原理及源码深度解析.md">JVM CPU Profiler技术原理及源码深度解析.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="JVM&#32;垃圾收集器.md">JVM 垃圾收集器.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="JVM&#32;面试的&#32;30&#32;个知识点.md">JVM 面试的 30 个知识点.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Java&#32;IO&#32;体系、线程模型大总结.md">Java IO 体系、线程模型大总结.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Java&#32;面试题集锦（网络篇）.md">Java 面试题集锦（网络篇）.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Java-直接内存&#32;DirectMemory&#32;详解.md">Java-直接内存 DirectMemory 详解.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Java中的SPI.md">Java中的SPI.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Java中的ThreadLocal.md">Java中的ThreadLocal.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Java线程池实现原理及其在美团业务中的实践.md">Java线程池实现原理及其在美团业务中的实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Java魔法类：Unsafe应用解析.md">Java魔法类：Unsafe应用解析.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Kafka&#32;源码阅读笔记.md">Kafka 源码阅读笔记.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Kafka、ActiveMQ、RabbitMQ、RocketMQ&#32;区别以及高可用原理.md">Kafka、ActiveMQ、RabbitMQ、RocketMQ 区别以及高可用原理.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;·&#32;引擎特性&#32;·&#32;InnoDB&#32;Buffer&#32;Pool.md">MySQL · 引擎特性 · InnoDB Buffer Pool.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;·&#32;引擎特性&#32;·&#32;InnoDB&#32;IO子系统.md">MySQL · 引擎特性 · InnoDB IO子系统.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;·&#32;引擎特性&#32;·&#32;InnoDB&#32;事务系统.md">MySQL · 引擎特性 · InnoDB 事务系统.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;·&#32;引擎特性&#32;·&#32;InnoDB&#32;同步机制.md">MySQL · 引擎特性 · InnoDB 同步机制.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;·&#32;引擎特性&#32;·&#32;InnoDB&#32;数据页解析.md">MySQL · 引擎特性 · InnoDB 数据页解析.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;·&#32;引擎特性&#32;·&#32;InnoDB崩溃恢复.md">MySQL · 引擎特性 · InnoDB崩溃恢复.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;·&#32;引擎特性&#32;·&#32;临时表那些事儿.md">MySQL · 引擎特性 · 临时表那些事儿.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;主从复制&#32;半同步复制.md">MySQL 主从复制 半同步复制.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;主从复制&#32;基于GTID复制.md">MySQL 主从复制 基于GTID复制.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;主从复制.md">MySQL 主从复制.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;事务日志(redo&#32;log和undo&#32;log).md">MySQL 事务日志(redo log和undo log).md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;亿级别数据迁移实战代码分享.md">MySQL 亿级别数据迁移实战代码分享.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;从一条数据说起-InnoDB行存储数据结构.md">MySQL 从一条数据说起-InnoDB行存储数据结构.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;地基基础：事务和锁的面纱.md">MySQL 地基基础：事务和锁的面纱.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;地基基础：数据字典.md">MySQL 地基基础：数据字典.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;地基基础：数据库字符集.md">MySQL 地基基础：数据库字符集.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;性能优化：碎片整理.md">MySQL 性能优化：碎片整理.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;故障诊断：一个&#32;ALTER&#32;TALBE&#32;执行了很久，你慌不慌？.md">MySQL 故障诊断：一个 ALTER TALBE 执行了很久，你慌不慌？.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;故障诊断：如何在日志中轻松定位大事务.md">MySQL 故障诊断：如何在日志中轻松定位大事务.md</a>
+
+                </li>
+                <li>
+
+                    <a class="current-tab" href="MySQL&#32;故障诊断：教你快速定位加锁的&#32;SQL.md">MySQL 故障诊断：教你快速定位加锁的 SQL.md</a>
+                    
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;日志详解.md">MySQL 日志详解.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL&#32;的半同步是什么？.md">MySQL 的半同步是什么？.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL中的事务和MVCC.md">MySQL中的事务和MVCC.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL事务_事务隔离级别详解.md">MySQL事务_事务隔离级别详解.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL优化：优化&#32;select&#32;count().md">MySQL优化：优化 select count().md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL共享锁、排他锁、悲观锁、乐观锁.md">MySQL共享锁、排他锁、悲观锁、乐观锁.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="MySQL的MVCC（多版本并发控制）.md">MySQL的MVCC（多版本并发控制）.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="QingStor&#32;对象存储架构设计及最佳实践.md">QingStor 对象存储架构设计及最佳实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="RocketMQ&#32;面试题集锦.md">RocketMQ 面试题集锦.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="SnowFlake&#32;雪花算法生成分布式&#32;ID.md">SnowFlake 雪花算法生成分布式 ID.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Spring&#32;Boot&#32;2.x&#32;结合&#32;k8s&#32;实现分布式微服务架构.md">Spring Boot 2.x 结合 k8s 实现分布式微服务架构.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Spring&#32;Boot&#32;教程：如何开发一个&#32;starter.md">Spring Boot 教程：如何开发一个 starter.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Spring&#32;MVC&#32;原理.md">Spring MVC 原理.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Spring&#32;MyBatis和Spring整合的奥秘.md">Spring MyBatis和Spring整合的奥秘.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Spring&#32;帮助你更好的理解Spring循环依赖.md">Spring 帮助你更好的理解Spring循环依赖.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Spring&#32;循环依赖及解决方式.md">Spring 循环依赖及解决方式.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Spring中眼花缭乱的BeanDefinition.md">Spring中眼花缭乱的BeanDefinition.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="Vert.x&#32;基础入门.md">Vert.x 基础入门.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="eBay&#32;的&#32;Elasticsearch&#32;性能调优实践.md">eBay 的 Elasticsearch 性能调优实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="不可不说的Java“锁”事.md">不可不说的Java“锁”事.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="互联网并发限流实战.md">互联网并发限流实战.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="从ReentrantLock的实现看AQS的原理及应用.md">从ReentrantLock的实现看AQS的原理及应用.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="从SpringCloud开始，聊微服务架构.md">从SpringCloud开始，聊微服务架构.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="全面了解&#32;JDK&#32;线程池实现原理.md">全面了解 JDK 线程池实现原理.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="分布式一致性理论与算法.md">分布式一致性理论与算法.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="分布式一致性算法&#32;Raft.md">分布式一致性算法 Raft.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="分布式唯一&#32;ID&#32;解析.md">分布式唯一 ID 解析.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="分布式链路追踪：集群管理设计.md">分布式链路追踪：集群管理设计.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="动态代理种类及原理，你知道多少？.md">动态代理种类及原理，你知道多少？.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="响应式架构与&#32;RxJava&#32;在有赞零售的实践.md">响应式架构与 RxJava 在有赞零售的实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="大数据算法——布隆过滤器.md">大数据算法——布隆过滤器.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="如何设计一个亿级消息量的&#32;IM&#32;系统.md">如何设计一个亿级消息量的 IM 系统.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="异步网络模型.md">异步网络模型.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="当我们在讨论CQRS时，我们在讨论些神马？.md">当我们在讨论CQRS时，我们在讨论些神马？.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="彻底理解&#32;MySQL&#32;的索引机制.md">彻底理解 MySQL 的索引机制.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="最全的&#32;116&#32;道&#32;Redis&#32;面试题解答.md">最全的 116 道 Redis 面试题解答.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="有赞权限系统(SAM).md">有赞权限系统(SAM).md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="有赞零售中台建设方法的探索与实践.md">有赞零售中台建设方法的探索与实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="服务注册与发现原理剖析（Eureka、Zookeeper、Nacos）.md">服务注册与发现原理剖析（Eureka、Zookeeper、Nacos）.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="深入浅出Cache.md">深入浅出Cache.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="深入理解&#32;MySQL&#32;底层实现.md">深入理解 MySQL 底层实现.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="漫画讲解&#32;git&#32;rebase&#32;VS&#32;git&#32;merge.md">漫画讲解 git rebase VS git merge.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="生成浏览器唯一稳定&#32;ID&#32;的探索.md">生成浏览器唯一稳定 ID 的探索.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="缓存&#32;如何保证缓存与数据库的双写一致性？.md">缓存 如何保证缓存与数据库的双写一致性？.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="网易严选怎么做全链路监控的？.md">网易严选怎么做全链路监控的？.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="美团万亿级&#32;KV&#32;存储架构与实践.md">美团万亿级 KV 存储架构与实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="美团点评Kubernetes集群管理实践.md">美团点评Kubernetes集群管理实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="解读《阿里巴巴&#32;Java&#32;开发手册》背后的思考.md">解读《阿里巴巴 Java 开发手册》背后的思考.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="认识&#32;MySQL&#32;和&#32;Redis&#32;的数据一致性问题.md">认识 MySQL 和 Redis 的数据一致性问题.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="进阶：Dockerfile&#32;高阶使用指南及镜像优化.md">进阶：Dockerfile 高阶使用指南及镜像优化.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="铁总在用的高性能分布式缓存计算框架&#32;Geode.md">铁总在用的高性能分布式缓存计算框架 Geode.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="阿里云PolarDB及其共享存储PolarFS技术实现分析（上）.md">阿里云PolarDB及其共享存储PolarFS技术实现分析（上）.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="阿里云PolarDB及其共享存储PolarFS技术实现分析（下）.md">阿里云PolarDB及其共享存储PolarFS技术实现分析（下）.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="面试最常被问的&#32;Java&#32;后端题.md">面试最常被问的 Java 后端题.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="领域驱动设计在互联网业务开发中的实践.md">领域驱动设计在互联网业务开发中的实践.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="领域驱动设计的菱形对称架构.md">领域驱动设计的菱形对称架构.md</a>
+
+                </li>
+                <li>
+
+                    
+                    <a href="高效构建&#32;Docker&#32;镜像的最佳实践.md">高效构建 Docker 镜像的最佳实践.md</a>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+        <div class="sidebar-toggle-inner"></div>
+    </div>
+
+    <script>
+        function add_inner() {
+            let inner = document.querySelector('.sidebar-toggle-inner')
+            inner.classList.add('show')
+        }
+
+        function remove_inner() {
+            let inner = document.querySelector('.sidebar-toggle-inner')
+            inner.classList.remove('show')
+        }
+
+        function sidebar_toggle() {
+            let sidebar_toggle = document.querySelector('.sidebar-toggle')
+            let sidebar = document.querySelector('.book-sidebar')
+            let content = document.querySelector('.off-canvas-content')
+            if (sidebar_toggle.classList.contains('extend')) { // show
+                sidebar_toggle.classList.remove('extend')
+                sidebar.classList.remove('hide')
+                content.classList.remove('extend')
+            } else { // hide
+                sidebar_toggle.classList.add('extend')
+                sidebar.classList.add('hide')
+                content.classList.add('extend')
+            }
+        }
+    </script>
+
+    <div class="off-canvas-content">
+        <div class="columns">
+            <div class="column col-12 col-lg-12">
+                <div class="book-navbar">
+                    <!-- For Responsive Layout -->
+                    <header class="navbar">
+                        <section class="navbar-section">
+                            <a onclick="open_sidebar()">
+                                <i class="icon icon-menu"></i>
+                            </a>
+                        </section>
+                    </header>
+                </div>
+                <div class="book-content" style="max-width: 960px; margin: 0 auto;
+    overflow-x: auto;
+    overflow-y: hidden;">
+                    <div class="book-post">
+                        <p id="tip" align="center"></p>
+                        <div><h1>MySQL 故障诊断：教你快速定位加锁的 SQL</h1>
+<h3>为什么会加锁</h3>
+<p>锁是可以协调并发连接访问 MySQL 数据库资源的一种技术，可以保证数据的一致性。</p>
+<p>有关 MySQL 锁的具体内容，可以详看我的另外一个 Chat，其中有一部分介绍的是“MySQL 锁机制（机智）”：</p>
+<blockquote>
+<p>[MySQL 地基基础：事务和锁的面纱](MySQL 地基基础：事务和锁的面纱.md)</p>
+</blockquote>
+<h3>数据库锁有什么威力</h3>
+<p>在实际应用中你肯定遇到过锁问题，这个锁的威力很大，那出现了数据库锁，会造成什么影响呢？</p>
+<p><strong>锁等待</strong></p>
+<p>一个连接申请了锁资源，其他连接要申请资源，无法获取，等待资源释放。</p>
+<p><strong>死锁</strong></p>
+<p>你锁我，我也锁你，大家一起锁着吧。</p>
+<h3>快速定位加锁的 SQL</h3>
+<p>既然出现了锁，我们就要管理一下这个锁，找一找是什么 SQL 持有这个锁，早点发现锁，提前干预，下面我们看看如何快速定位加锁的 SQL。</p>
+<p>首先我们创建一个测试表：</p>
+<pre><code>mysql&gt; create table t1(id decimal,v_name varchar(10));
+mysql&gt; insert into t1 values(1,'a'),(2,'b'),(3,'c');
+mysql&gt; select * from t1;
++------+--------+
+| id   | v_name |
++------+--------+
+|    1 | a      |
+|    2 | b      |
+|    3 | c      |
++------+--------+
+3 rows in set (0.00 sec)
+</code></pre>
+<p>会话 1，开启事务，更新 id=1 的数据：</p>
+<pre><code>mysql&gt; begin;
+mysql&gt; update t1 set v_name='aa' where id=1;
+</code></pre>
+<p>会话 2，开启另一个事务，删除 id=1 的数据：</p>
+<pre><code>mysql&gt; begin;
+mysql&gt; delete from t1 where id=1;
+</code></pre>
+<p>此时会话 2 被锁定，出现锁等待。</p>
+<p>我们再开一个会话 3，查查当前的 processlist，看看是否能发现什么？</p>
+<pre><code>mysql&gt; show processlist;
++----+------+-----------+------+---------+------+----------+---------------------------+
+| Id | User | Host      | db   | Command | Time | State    | Info                      |
++----+------+-----------+------+---------+------+----------+---------------------------+
+| 38 | root | localhost | test | Sleep   |    5 |          | NULL                      |
+| 41 | root | localhost | test | Query   |    2 | updating | delete from t1 where id=1 |
+| 42 | root | localhost | NULL | Query   |    0 | starting | show processlist          |
++----+------+-----------+------+---------+------+----------+---------------------------+
+</code></pre>
+<p>我们可以看到 delete 这个 SQL 的进程在执行中，并没有发现其他有价值的内容，那锁在哪里了。接下来的步骤带你一步步的定位出加锁的 SQL。</p>
+<p><strong>定位锁等待</strong></p>
+<pre><code>mysql&gt; select * from information_schema.innodb_lock_waits;
++-------------------+-------------------+-----------------+------------------+
+| requesting_trx_id | requested_lock_id | blocking_trx_id | blocking_lock_id |
++-------------------+-------------------+-----------------+------------------+
+| 2207              | 2207:28:3:7       | 2206            | 2206:28:3:7      |
++-------------------+-------------------+-----------------+------------------+
+1 row in set, 1 warning (0.00 sec)
+</code></pre>
+<p>结果显示有一个锁等待。</p>
+<p><strong>定位锁</strong></p>
+<pre><code>mysql&gt; select * from information_schema.innodb_locks;
++-------------+-------------+-----------+-----------+-------------+-----------------+------------+-----------+----------+----------------+
+| lock_id     | lock_trx_id | lock_mode | lock_type | lock_table  | lock_index      | lock_space | lock_page | lock_rec | lock_data      |
++-------------+-------------+-----------+-----------+-------------+-----------------+------------+-----------+----------+----------------+
+| 2207:28:3:7 | 2207        | X         | RECORD    | `test`.`t1` | GEN_CLUST_INDEX |         28 |         3 |        7 | 0x000000000211 |
+| 2206:28:3:7 | 2206        | X         | RECORD    | `test`.`t1` | GEN_CLUST_INDEX |         28 |         3 |        7 | 0x000000000211 |
++-------------+-------------+-----------+-----------+-------------+-----------------+------------+-----------+----------+----------------+
+2 rows in set, 1 warning (0.00 sec)
+</code></pre>
+<p>结果显示有两个锁相关内容。</p>
+<p><strong>定位事务</strong></p>
+<pre><code>mysql&gt; select trx_id,trx_started,trx_requested_lock_id,trx_query,trx_mysql_thread_id from information_schema.innodb_trx;
++--------+---------------------+-----------------------+---------------------------+---------------------+
+| trx_id | trx_started         | trx_requested_lock_id | trx_query                 | trx_mysql_thread_id |
++--------+---------------------+-----------------------+---------------------------+---------------------+
+| 2207   | 2021-01-18 15:18:11 | 2207:28:3:7           | delete from t1 where id=1 |                  41 |
+| 2206   | 2021-01-18 15:18:08 | NULL                  | NULL                      |                  38 |
++--------+---------------------+-----------------------+---------------------------+---------------------+
+2 rows in set (0.01 sec)
+</code></pre>
+<p>结果有两个事务，MySQL 事务线程 id 为 38 和 41，很直观的看到 41 是我们的 delete 事务，被 38 锁定。</p>
+<p><strong>定位线程</strong></p>
+<pre><code>mysql&gt; select * from performance_schema.threads where processlist_id=38;
++-----------+---------------------------+------------+----------------+------------------+------------------+----------------+---------------------+------------------+-------------------+------------------+------------------+------+--------------+---------+-----------------+--------------+
+| THREAD_ID | NAME                      | TYPE       | PROCESSLIST_ID | PROCESSLIST_USER | PROCESSLIST_HOST | PROCESSLIST_DB | PROCESSLIST_COMMAND | PROCESSLIST_TIME | PROCESSLIST_STATE | PROCESSLIST_INFO | PARENT_THREAD_ID | ROLE | INSTRUMENTED | HISTORY | CONNECTION_TYPE | THREAD_OS_ID |
++-----------+---------------------------+------------+----------------+------------------+------------------+----------------+---------------------+------------------+-------------------+------------------+------------------+------+--------------+---------+-----------------+--------------+
+|        63 | thread/sql/one_connection | FOREGROUND |             38 | root             | localhost        | test           | Sleep               |               35 | NULL              | NULL             |             NULL | NULL | YES          | YES     | Socket          |        15070 |
++-----------+---------------------------+------------+----------------+------------------+------------------+----------------+---------------------+------------------+-------------------+------------------+------------------+------+--------------+---------+-----------------+--------------+
+1 row in set (0.00 sec)
+</code></pre>
+<p>结果找到 MySQL 事务线程 38 对应的服务器线程 63。</p>
+<p><strong>定位加锁 SQL</strong></p>
+<pre><code>mysql&gt; select * from performance_schema.events_statements_current where thread_id=63;
++-----------+----------+--------------+----------------------+--------------------------+---------------------+---------------------+------------+-----------+--------------------------------------+----------------------------------+----------------------------------------------+----------------+-------------+---------------+-------------+-----------------------+-------------+-------------------+------------------------------------------+--------+----------+---------------+-----------+---------------+-------------------------+--------------------+------------------+------------------------+--------------+--------------------+-------------+-------------------+------------+-----------+-----------+---------------+--------------------+------------------+--------------------+---------------------+
+| THREAD_ID | EVENT_ID | END_EVENT_ID | EVENT_NAME           | SOURCE                   | TIMER_START         | TIMER_END           | TIMER_WAIT | LOCK_TIME | SQL_TEXT                             | DIGEST                           | DIGEST_TEXT                                  | CURRENT_SCHEMA | OBJECT_TYPE | OBJECT_SCHEMA | OBJECT_NAME | OBJECT_INSTANCE_BEGIN | MYSQL_ERRNO | RETURNED_SQLSTATE | MESSAGE_TEXT                             | ERRORS | WARNINGS | ROWS_AFFECTED | ROWS_SENT | ROWS_EXAMINED | CREATED_TMP_DISK_TABLES | CREATED_TMP_TABLES | SELECT_FULL_JOIN | SELECT_FULL_RANGE_JOIN | SELECT_RANGE | SELECT_RANGE_CHECK | SELECT_SCAN | SORT_MERGE_PASSES | SORT_RANGE | SORT_ROWS | SORT_SCAN | NO_INDEX_USED | NO_GOOD_INDEX_USED | NESTING_EVENT_ID | NESTING_EVENT_TYPE | NESTING_EVENT_LEVEL |
++-----------+----------+--------------+----------------------+--------------------------+---------------------+---------------------+------------+-----------+--------------------------------------+----------------------------------+----------------------------------------------+----------------+-------------+---------------+-------------+-----------------------+-------------+-------------------+------------------------------------------+--------+----------+---------------+-----------+---------------+-------------------------+--------------------+------------------+------------------------+--------------+--------------------+-------------+-------------------+------------+-----------+-----------+---------------+--------------------+------------------+--------------------+---------------------+
+|        63 |       32 |           32 | statement/sql/update | socket_connection.cc:101 | 2757904906303653000 | 2757904906543381000 |  239728000 | 145000000 | update t1 set v_name='aa' where id=1 | 356a053ffb5eae2a35981b05090faa01 | UPDATE `t1` SET `v_name` = ? WHERE `id` = ?  | test           | NULL        | NULL          | NULL        |                  NULL |           0 | 00000             | Rows matched: 1  Changed: 0  Warnings: 0 |      0 |        0 |             0 |         0 |             3 |                       0 |                  0 |                0 |                      0 |            0 |                  0 |           0 |                 0 |          0 |         0 |         0 |             0 |                  0 |             NULL | NULL               |                   0 |
++-----------+----------+--------------+----------------------+--------------------------+---------------------+---------------------+------------+-----------+--------------------------------------+----------------------------------+----------------------------------------------+----------------+-------------+---------------+-------------+-----------------------+-------------+-------------------+------------------------------------------+--------+----------+---------------+-----------+---------------+-------------------------+--------------------+------------------+------------------------+--------------+--------------------+-------------+-------------------+------------+-----------+-----------+---------------+--------------------+------------------+--------------------+---------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<p>结果中我们找到了加锁的 update 的 SQL 语句。</p>
+<p><strong>总结</strong></p>
+<p>在 MySQL 数据库中出现了锁，不要着急，我们通过这个方法可以快速定位加锁的 SQL，你学会了吗？</p>
+</div>
+                    </div>
+                    <div>
+                        <div style="float: left">
+                            <a href="MySQL&#32;故障诊断：如何在日志中轻松定位大事务.md">上一页</a>
+                        </div>
+                        <div style="float: right">
+                            <a href="MySQL&#32;日志详解.md">下一页</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v64f9daad31f64f81be21cbef6184a5e31634941392597" integrity="sha512-gV/bogrUTVP2N3IzTDKzgP0Js1gg4fbwtYB6ftgLbKQu/V8yH2+lrKCfKHelh4SO3DPzKj4/glTO+tNJGDnb0A==" data-cf-beacon='{"rayId":"6b436348c825645f","version":"2021.11.0","r":1,"token":"1f5d475227ce4f0089a7cff1ab17c0f5","si":100}' crossorigin="anonymous"></script>
+</body>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NPSEEVD756"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-NPSEEVD756');
+    var path = window.location.pathname
+    var cookie = getCookie("lastPath");
+    console.log(path)
+    if (path.replace("/", "") === "") {
+        if (cookie.replace("/", "") !== "") {
+            console.log(cookie)
+            document.getElementById("tip").innerHTML = "<a href='https://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/&quot;&#32;+&#32;cookie&#32;+&#32;&quot;'>跳转到上次进度</a>"
+        }
+    } else {
+        setCookie("lastPath", path)
+    }
+
+    function setCookie(cname, cvalue) {
+        var d = new Date();
+        d.setTime(d.getTime() + (180 * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires + ";path = /";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+</script>
+
+</html>
